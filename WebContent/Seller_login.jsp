@@ -62,6 +62,14 @@
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-lg-4"></div>
+					<div class="col-lg-4">
+						<div class="form-group">
+							<a href="">Forgot password?</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</form>	
 	</body>
