@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.Statement;
 
 /**
@@ -46,7 +45,7 @@ public class Seller_login_check extends HttpServlet {
 			Connection conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryhub","root","");
 			String sql="select * from sellerlogin where username='"+username+"' and password='"+password+"'";
 			statement=(Statement)conn.createStatement();
-			ResultSet resultSet=(ResultSet)statement.executeQuery(sql);
+			java.sql.ResultSet resultSet=(java.sql.ResultSet)statement.executeQuery(sql);
 			if(resultSet.next())
 			{
 				response.sendRedirect("Seller_deshboard.jsp");
