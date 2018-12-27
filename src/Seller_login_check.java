@@ -46,7 +46,7 @@ public class Seller_login_check extends HttpServlet {
 			Connection conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryhub","root","");
 			String sql="select * from sellerlogin where username='"+username+"' and password='"+password+"'";
 			statement=(Statement)conn.createStatement();
-			java.sql.ResultSet resultSet=(ResultSet)statement.executeQuery(sql);
+			java.sql.ResultSet resultSet=(java.sql.ResultSet)statement.executeQuery(sql);
 			if(resultSet.next())
 			{
 				response.sendRedirect("Seller_deshboard.jsp");
