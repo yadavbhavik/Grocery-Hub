@@ -15,7 +15,7 @@
 <title>AddItem</title>
 </head>
 <body>
-	<form action="">
+	<form action="Seller_additem">
 			<div class="container" style="margin-top:20px">
 			<div class="row">
 			<div class="col-lg-4"><img alt="Logo" src="Image\GroceryHub.png" style="width:250px;height:100px"></img></div>
@@ -32,7 +32,7 @@
 					<div class="col-lg-4"></div>
 						<div class="col-lg-4">
 						<label align="center">Category :</label>
-					<select class="form-control" id="category">
+					<select class="form-control" id="category" name="category">
 					  <option value="volvo">selected category 1</option>
 					  <option value="saab">selected category 1</option>
 					  <option value="opel">selected category 3</option>
@@ -80,7 +80,7 @@
 						<div class="col-lg-4"></div>
 						<div class="col-lg-4">
 						<label align="center">Package Of</label>
-					<select class="form-control" id="package of">
+					<select class="form-control" id="package_of" name="package_of">
 					  <option value="volvo">500 GM</option>
 					  <option value="saab">1 KG</option>
 					  <option value="opel">500 Ml</option>
