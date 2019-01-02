@@ -15,48 +15,70 @@
 <title>deshboard</title>
 </head>
 <body>         
-		<div class="container" style="margin-top:20px">
+		<div  style="margin:20px 20px 20px 20px  ;margin-right:20px; ">
 		<div class="row">
 			<div class="col-lg-4"><img alt="Logo" src="Image\GroceryHub.png" style="width:250px;height:100px"></img></div>
 			<div class="col-lg-4"></div>
 			<div class="col-lg-4" style="margin-top:60px"><ul align="center"><a href="#">Home</a><a href="Header.jsp" style="padding:10px;">Log Out</a></ul></div>
 		</div>
 		<div class="row" style="margin-top:20px">
-			<div class="col-lg-4">
+			<div class="col-lg-3">
 			<a href="Online_order_show.jsp"><button class="form-control btn-primary" id="#online_order">Online Order</button></a>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-3">
 			<a href="Offline_billing.jsp"><button class="form-control btn-primary" id="#offline_billing">Offline Billing</button></a>
 			</div>
-			<div class="col-lg-4">
+			<div class="col-lg-3">
+			<a href="Delete_item.jsp"><button class="form-control btn-primary" id="#item_add">Detele item</button></a>
+			</div>
+			<div class="col-lg-3">
 			<a href="AddItem.jsp"><button class="form-control btn-primary" id="#item_add">Add Item</button></a>
 			</div>
 		</div>
 		<div class="row"></div>
 		<div class="row">
-			<table class="table table-hover">
+			<table class="table table-hover" id="myTable">
     			<thead>
-    				  <tr>
+    				  <tr style="text-align:center">
 				        <th>Item Id</th>
-				        <th>Item Image</th>
+				        <th>Item Brand</th>
 				        <th>Item Category</th>
 				        <th>Item Name</th>
 				        <th>Package Of</th>
 				        <th>Price</th>
-				        <th>Discount</th>
 				        <th>Remaining Stock</th>
       				</tr>
     			</thead>
-    			<tbody>
-			      	<tr>
-			      		<td></td>
-			      		<td></td>
-			      		<td></td>
-			      		<td></td>
-			      		<td></td>		
-			      	</tr>
+    				<script>
+    					$(document).ready(function(){
+							
+    						var selleruname=$("#hiddenuname").val();
+    						$.ajax({
+    							type:'POST',
+    							url:'Ajaxsellerdeshboard',
+    							data:{
+    								username:selleruname,
+    							},
+    							success : function(responceText){
+    								console.log(responceText);
+    								var index;
+    								for(index=0;index<responceText.length;index++)
+    									{
+    										console.log(responceText[index]);
+    										$('#myTable').append('<tr><td>'+responceText[index].item_id+'</td><td>'+responceText[index].brand+'</td><td>'+responceText[index].category+'</td><td>'+responceText[index].item_name+'</td><td>'+responceText[index].package_of+'</td><td>'+responceText[index].remaining_item+'</td><td>'+responceText[index].remaining_stock+'</td></tr>');
+    									}
+    							}
+    						})
+    					});
+    				</script>
+    			
+    			<tbody class="text-center">
+	
     			</tbody>
   			</table>
+		</div>
+		<div>
+			<input type="hidden" id="hiddenuname" name="selleruname" value="<%=(String)session.getAttribute("username") %>"/>
 		</div>
 	</div>
 </body>
