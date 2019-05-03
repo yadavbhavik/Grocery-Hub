@@ -46,6 +46,7 @@ public class Seller_retype_password_insert extends HttpServlet {
 				if(i==1)
 				{
 					System.out.println("update successfull..");
+					response.sendRedirect("Seller_login.jsp");
 				}
 				else
 				{

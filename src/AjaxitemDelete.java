@@ -16,18 +16,17 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.Statement;
 
-
 /**
- * Servlet implementation class Ajaxsellerdeshboard
+ * Servlet implementation class AjaxitemDelete
  */
-@WebServlet("/Ajaxsellerdeshboard")
-public class Ajaxsellerdeshboard extends HttpServlet {
+@WebServlet(name = "Ajaxitemdelete", urlPatterns = { "/Ajaxitemdelete" })
+public class AjaxitemDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Ajaxsellerdeshboard() {
+    public AjaxitemDelete() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,15 +35,6 @@ public class Ajaxsellerdeshboard extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String uname=request.getParameter("username");
 		System.out.println(uname);
 		
@@ -55,7 +45,6 @@ public class Ajaxsellerdeshboard extends HttpServlet {
 			String sql="select * from selleritem where seller_username='"+uname+"'";
 			Statement statement=(Statement)conn.createStatement();
 			ResultSet resultSet=(ResultSet)statement.executeQuery(sql);
-		
 			JSONArray array=new JSONArray();
 			while(resultSet.next())
 			{   
@@ -73,12 +62,18 @@ public class Ajaxsellerdeshboard extends HttpServlet {
 		
 			response.setContentType("application/json");
 			response.getWriter().println(array);
-		}
-		catch(Exception exception)
+	}
+		catch(Exception e)
 		{
-			exception.printStackTrace();
+			e.printStackTrace();
 		}
-		
+	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

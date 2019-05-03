@@ -1,20 +1,25 @@
 
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.DriverManager;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
 import java.sql.*;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
 @WebServlet("/Seller_registration")
+@MultipartConfig(maxFileSize = 16177215) 
 public class Seller_registration extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -47,9 +52,13 @@ public class Seller_registration extends HttpServlet {
 			int Bankaccountno = Integer.parseInt(request.getParameter("bankaccountno"));
 			
 			
+	        InputStream inputStream1,inputStream2 = null;
+	        Part filePart1 = request.getPart("imgaadhar");
+	        Part filePart2 = request.getPart("imgpancard");
+	      
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryhub","root","");
-			PreparedStatement pst = conn.prepareStatement("insert into sellerregistration(sellername,sellermobileno,alternativemobileno,email,confirmemail,selleraddress,shopname,shopaddress,shopemail,shopmobileno,aadharcardno,gstno,pancardno,bankaccountno,sellerbankholdername,ifscno) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement pst = conn.prepareStatement("insert into sellerregistration(sellername,sellermobileno,alternativemobileno,email,confirmemail,selleraddress,shopname,shopaddress,shopemail,shopmobileno,aadharcardno,aadharcardimage,gstno,pancardno,pancardimage,bankaccountno,sellerbankholdername,ifscno) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			pst.setString(1,Sellername);
 			pst.setInt(2,Sellermobileno);
 			pst.setInt(3,Alternativemobileno);
@@ -61,11 +70,36 @@ public class Seller_registration extends HttpServlet {
 			pst.setString(9,Shopemail);
 			pst.setInt(10,Shopmobileno);
 			pst.setInt(11,Aadharcardno);
-			pst.setString(12,Gstno);
-			pst.setString(13,Pancardno);
-			pst.setInt(14,Bankaccountno);
-			pst.setString(15,Sellerbankholdername);
-			pst.setString(16,Ifscno);
+			pst.setString(13,Gstno);
+			pst.setString(14,Pancardno);
+			pst.setInt(16,Bankaccountno);
+			pst.setString(17,Sellerbankholdername);
+			pst.setString(18,Ifscno);
+			
+			 if (filePart1 != null) 
+		        {
+		            // obtains input stream of the upload file
+		            inputStream1 = filePart1.getInputStream();
+		          
+		            if (inputStream1 != null) 
+		            {
+		                // fetches input stream of the upload file for the blob column
+		                pst.setBlob(12, inputStream1);
+		            }
+		        }
+			 
+			 if (filePart2 != null) 
+		        {
+		            // obtains input stream of the upload file
+		            inputStream2 = filePart2.getInputStream();
+		          
+		            if (inputStream2 != null) 
+		            {
+		                // fetches input stream of the upload file for the blob column
+		                pst.setBlob(15, inputStream2);
+		            }
+		        }
+
 			
 			int i = pst.executeUpdate();
 			if(i!=0)

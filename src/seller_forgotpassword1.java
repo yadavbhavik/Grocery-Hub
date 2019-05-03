@@ -53,11 +53,11 @@ public class seller_forgotpassword1 extends HttpServlet {
 					int no = rand.nextInt(9000)+1000;
 					
 					 //Your authentication key
-			        String authkey = "141319AYoCTFO1hhVt58a2f318";
+			        String authkey = "261336AcE0PSaDOzyv5c6af3a5";
 			        //Multiple mobiles numbers separated by comma
 			        String mobiles =mobile;
 			        //Sender ID,While using route4 sender id should be 6 characters long.
-			        String senderId = "GHub";
+			        String senderId = "G_Hub1";
 			        //Your message to send, Add URL encoding here.
 			        String message = "Your Verification code is i.e OTP "+no;
 			        //define route

@@ -16,18 +16,17 @@ import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.Statement;
 
-
 /**
- * Servlet implementation class Ajaxsellerdeshboard
+ * Servlet implementation class Edit_item_modal
  */
-@WebServlet("/Ajaxsellerdeshboard")
-public class Ajaxsellerdeshboard extends HttpServlet {
+@WebServlet("/Edit_item_modal")
+public class Edit_item_modal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Ajaxsellerdeshboard() {
+    public Edit_item_modal() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,48 +36,48 @@ public class Ajaxsellerdeshboard extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String uname=request.getParameter("username");
-		System.out.println(uname);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
 		
+		String itemid=request.getParameter("itemid");
+		System.out.println(itemid);
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection conn = (Connection)DriverManager.getConnection("jdbc:mysql://localhost:3306/groceryhub","root","");
-			String sql="select * from selleritem where seller_username='"+uname+"'";
+			String sql="select * from selleritem where item_id='"+itemid+"'";
 			Statement statement=(Statement)conn.createStatement();
 			ResultSet resultSet=(ResultSet)statement.executeQuery(sql);
 		
-			JSONArray array=new JSONArray();
+			JSONObject jsonObject=new JSONObject();
 			while(resultSet.next())
 			{   
-				JSONObject jsonObject=new JSONObject();
+				
 				jsonObject.put("item_id",resultSet.getString("item_id"));
 				jsonObject.put("brand",resultSet.getString("brand"));
 				jsonObject.put("category",resultSet.getString("category"));
 				jsonObject.put("item_name",resultSet.getString("item_name"));
 				jsonObject.put("package_of",resultSet.getString("package_of"));
-				jsonObject.put("remaining_item",resultSet.getString("mrp"));
+				jsonObject.put("MRP",resultSet.getString("mrp"));
 				jsonObject.put("remaining_stock",resultSet.getString("quantity"));
 				
-				array.add(jsonObject);
 			}
 		
 			response.setContentType("application/json");
-			response.getWriter().println(array);
+			System.out.println(jsonObject);
+			response.getWriter().println(jsonObject);
 		}
 		catch(Exception exception)
 		{
 			exception.printStackTrace();
 		}
-		
+
 	}
 
 }
